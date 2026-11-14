@@ -1,0 +1,44 @@
+# Third-party skills to install for BOTH Claude Code and Codex.
+# Format:  <github owner/repo>  <commit, tag or branch>  <path>  [claude|codex]
+#   <path> is one skill folder, or a folder whose children are skills.
+#   Last column is optional: limit the line to one agent.
+# Delete or comment out any line you don't want, then re-run install.sh.
+
+# pstack (poteto-mode). Claude gets it as a plugin (see claude-plugins.txt),
+# so these raw skills are for Codex only. They use Cursor tool and model names.
+cursor/plugins  3dbd22ff12742fb28c9700b9760baa29ed41dc13  pstack/skills  codex
+
+# Apple design skill family (9 skills)
+s1gmamale1/apple-design-skills  8a3fbea8b561405e5719d682ebd1d14c952aecd7  skills
+
+# Matt Pocock: engineering
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/ask-matt
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/codebase-design
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/diagnosing-bugs
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/domain-modeling
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/grill-with-docs
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/implement
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/implement-spec
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/improve-codebase-architecture
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/pr
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/prototype
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/research
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/retro
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/setup-matt-pocock-skills
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/tdd
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/to-spec
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/to-tickets
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/triage
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/wayfinder
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/wizard
+# Off by default: same name as Claude Code's built-in /code-review.
+# mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/code-review
+
+# Matt Pocock: productivity
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/productivity/grill-me
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/productivity/grilling
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/productivity/handoff
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/productivity/teach
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/productivity/to-questionnaire
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/productivity/wait-what
+mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/productivity/writing-for-agents
