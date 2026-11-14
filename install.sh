@@ -18,7 +18,10 @@ link_skill() { # <skill dir> <target skills dir>
     echo "  skip (name already taken by an earlier line): $dest"; skipped=$((skipped+1)); return
   fi
   if [ -L "$dest" ]; then
-    rm "$dest"
+    case "$(readlink "$dest")" in
+      "$VENDOR"/*|"$REPO"/*) rm "$dest" ;;
+      *) echo "  skip (a link we did not create): $dest"; skipped=$((skipped+1)); return ;;
+    esac
   elif [ -e "$dest" ]; then
     echo "  skip (already exists, not ours): $dest"; skipped=$((skipped+1)); return
   fi
