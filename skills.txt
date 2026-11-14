@@ -8,8 +8,32 @@
 # so these raw skills are for Codex only. They use Cursor tool and model names.
 cursor/plugins  3dbd22ff12742fb28c9700b9760baa29ed41dc13  pstack/skills  codex
 
-# Apple design skill family (9 skills)
-s1gmamale1/apple-design-skills  8a3fbea8b561405e5719d682ebd1d14c952aecd7  skills
+# Emil Kowalski: apple-design, animation and design-engineering skills (19)
+emilkowalski/skills  0f2e23b32bb1265e84cff8d3e75785fec953fb1b  skills
+
+# Impeccable (separate builds for each agent)
+pbakaus/impeccable  9272526cbd11eff91f0842d383be099f30fc3ff9  .claude/skills/impeccable  claude
+pbakaus/impeccable  9272526cbd11eff91f0842d383be099f30fc3ff9  .agents/skills/impeccable  codex
+
+# UI UX Pro Max and its companion design skills (7)
+nextlevelbuilder/ui-ux-pro-max-skill  6ae86f61f520d6ca229d2f40e070410638c908c5  .claude/skills
+
+# Video and media: HyperFrames (9)
+heygen-com/hyperframes  58ef24c6d88634ff42f60b0435f3685ccfa2d459  skills
+
+# here.now
+heredotnow/skill  88bb6b4b1b5c2e3252dbc55e9a1369c330441c38  skills/here-now
+
+# Stripe (10)
+stripe/ai  74f7f39b1d7f3b56e49218a43b0dc87a268c03c7  skills
+
+# Vercel (9), plus find-skills
+vercel-labs/agent-skills  1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62  skills
+vercel-labs/skills  b716f9dc2ba36b6aa8f0080615e5a3a6caeac63b  skills/find-skills
+
+# Cloudflare (22). Codex only: Claude already gets these from the Cloudflare
+# plugin synced from the claude.ai account.
+cloudflare/skills  cbf893b954222276bf1af57e5f23379231e0efb9  skills  codex
 
 # Matt Pocock: engineering
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/ask-matt
@@ -21,7 +45,8 @@ mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/implement-spec
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/improve-codebase-architecture
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/pr
-mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/prototype
+# Off: Emil Kowalski's `prototype` is used instead.
+# mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/prototype
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/research
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/retro
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/setup-matt-pocock-skills
