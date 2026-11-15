@@ -11,6 +11,9 @@ cursor/plugins  3dbd22ff12742fb28c9700b9760baa29ed41dc13  pstack/skills  codex
 # Emil Kowalski: apple-design, animation and design-engineering skills (19)
 emilkowalski/skills  0f2e23b32bb1265e84cff8d3e75785fec953fb1b  skills
 
+# Scandinavian design (Eric Zakariasson)
+ericzakariasson/scandinavian-design  295742307b97fa0fb848f9be2d6e229ca517c736  skills/scandinavian-design
+
 # Impeccable (separate builds for each agent)
 pbakaus/impeccable  9272526cbd11eff91f0842d383be099f30fc3ff9  .claude/skills/impeccable  claude
 pbakaus/impeccable  9272526cbd11eff91f0842d383be099f30fc3ff9  .agents/skills/impeccable  codex
