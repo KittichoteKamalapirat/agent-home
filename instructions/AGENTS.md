@@ -14,9 +14,38 @@ AGENTS.md or CLAUDE.md takes precedence where they differ.
 ## Skills
 
 - Shared skills are installed from the agent-home repo
-  (github.com/KittichoteKamalapirat/agent-home). To add one everywhere, add it to
-  agent-home's `skills.txt`; do not copy shared skills into a project.
+  (github.com/KittichoteKamalapirat/agent-home). Do not copy shared skills into a
+  project.
 - Project-specific skills live in the project's own `.agents/skills`.
+
+### Creating or editing a skill
+
+Whichever skill-writing skill you use, decide where the skill belongs before
+writing any files:
+
+- If it only makes sense for one project, create it in that project's
+  `.agents/skills/<name>` and deliver it the way that repo delivers changes.
+- Otherwise it is a shared skill and belongs in agent-home. Do not create it
+  directly in `~/.claude/skills`, `~/.agents/skills` or `~/.codex/skills`; a
+  skill created there exists on one machine only.
+
+For a shared skill:
+
+1. Find the local agent-home checkout with `readlink ~/.claude/CLAUDE.md` (or
+   `~/.codex/AGENTS.md`); the repo root is two folders above that file. Run
+   `git pull` there first.
+2. A skill of my own goes in `skills/<name>/SKILL.md` in that checkout. A public
+   skill from someone else's repo goes in `skills.txt` as a line with the repo
+   and a pinned revision.
+3. Run `./install.sh` so both agents on this machine get it.
+4. The repo is public. Before committing, check the skill for secrets, tokens,
+   private paths and details of unreleased work, and stop to ask me if you find
+   any.
+5. Commit and push to `master` in the same task. The skill is not finished until
+   it is on GitHub, because the cloud and my other machines install from there.
+
+If the agent-home checkout cannot be pushed from the current session, say so and
+give me the files to add; do not leave a local-only copy as the result.
 
 ## pstack in Codex
 
