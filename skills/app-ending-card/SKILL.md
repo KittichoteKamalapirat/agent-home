@@ -1,0 +1,57 @@
+---
+name: app-ending-card
+description: Makes a short animated ending that promotes the user's app at the end of a vertical social video, one version per platform (Instagram, TikTok, Facebook, YouTube). It shows the taps that send this very video to the app, the saved result, then a closing screen with the app's name, store badge and web address. Use when the user wants to tie their app into a cooking, recipe or other content video, asks for an outro, end card or call to action for a Reel, TikTok or Short, or wants the same ending for a new video.
+---
+
+# App ending card
+
+A 5-second, 1080×1920 ending the user places on top of their own edit. It never touches their project: the output is a transparent clip with sound, one per platform.
+
+1. **0 to 3.1 s, over the video's final shot.** A card names the action ("Save this recipe to <App>"), shows that platform's three taps with a finger pressing each, then turns into the saved item with its name and a thumbnail from the video.
+2. **3.1 to 5 s, full frame.** White grows from the logo and covers the frame: logo and app name, store badge, web address. The logo hops with a short beep.
+
+## What to gather
+
+- **The app:** name, logo without a background (SVG or PNG), store badge artwork and web address, all from the user's project. Take the accent colour from its design guide.
+- **This video:** the item's name and a square thumbnail cropped from the final shot. If the user's editor is open, look at the last frame without changing the project; only move the playhead, and put it back.
+- **The share steps:** `scripts/page/platforms.json` holds the usual two taps before choosing the app. If the app ships its own "how to share" tutorial, read it and make the steps match.
+
+## Make it
+
+Create a work folder holding the files above and a `card.json`:
+
+```json
+{
+  "app": "Piiman",
+  "logo": "logo.svg",
+  "headline": "Save this recipe to Piiman",
+  "savedLabel": "Saved to Recipes",
+  "item": { "name": "Chipotle Bowl", "image": "dish.jpg" },
+  "badge": "badge.svg",
+  "url": "piiman.app",
+  "brandIcons": { "tiktok": "tiktok.svg" },
+  "accent": "#64cb3c",
+  "accentText": "#285b32"
+}
+```
+
+`badge`, `url`, `brandIcons`, `accent` and `accentText` are optional. Add `bg.png` (the final frame at 1080×1920) to also get a preview over the real shot.
+
+```bash
+scripts/make.sh <work-dir>
+```
+
+That renders all four platforms into `<work-dir>/out`; name platforms after the folder to render fewer. It uses the frame-capture tool from the `dev-vlog-editing` skill, which is installed alongside this one.
+
+## Check before handing over
+
+- Extract frames from a preview at about 0.7, 1.3, 1.8, 2.5 and 4.5 s and look at them: the headline fits on one line, the ring is on the right step, the thumbnail is the dish, the closing screen is centred.
+- The headline must stay under about 26 characters at this size. Shorten the wording before shrinking the type.
+- Say which checks were not possible: the sound has not been listened to, and whether the user's editor accepts a transparent clip is unknown until they try. If it does not, offer to attach the ending to their exported video.
+
+## Guidance to give the user
+
+- Put the card over the final food shot, with no separate black outro before it. The closing screen runs past the end of their video by 1.9 s.
+- A shorter version exists by design: delete the closing screen by setting `out` and `end` in `scripts/page/timing.json` to the same value, about 2.5 s.
+- The card is a template. For the next video only `item` changes.
+- Pair it with a caption line and a pinned comment carrying the store link, since viewers who leave early never see the ending.

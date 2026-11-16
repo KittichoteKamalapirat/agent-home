@@ -1,0 +1,6 @@
+{
+  "instagram": { "name": "Instagram", "steps": [["send", "Send", ""], ["shareto", "Share to…", ""]] },
+  "tiktok":    { "name": "TikTok",    "steps": [["share", "Share", "dark"], ["more", "More", "blue"]] },
+  "facebook":  { "name": "Facebook",  "steps": [["share", "Share", ""], ["more", "More", ""]] },
+  "youtube":   { "name": "YouTube",   "steps": [["share", "Share", ""], ["more", "More", ""]] }
+}

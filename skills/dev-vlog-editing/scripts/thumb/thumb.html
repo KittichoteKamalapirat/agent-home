@@ -1,0 +1,47 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Thumbnail</title>
+<style>
+  /* 1280x720 YouTube thumbnail: the speaker on a blurred, darkened room, a white line plus a highlighted line, and the app on the free side.
+     Lives in the thumb folder next to frame.jpg, person.png and bg-blur.jpg (made by cutout.sh). Everything is set by query parameters:
+       t1=white line   t2=highlighted line   icon=path   phone=path of an app screenshot
+       iconw=255 (px)  dim=0.4 (0 keeps the room's brightness)   blur=0 (use the sharp frame)   hl=ffe01b (highlight colour)
+       side=right|left (where the app goes: the side the speaker is not on)   label=small series label, e.g. "Building X / ep. 2" */
+  html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; background: #000; font-family: "Avenir Next", -apple-system, sans-serif; color: #fff; }
+  .fill { position: absolute; inset: 0; width: 1280px; height: 720px; object-fit: cover; }
+  #dim { background: #000; opacity: .4; }
+  #shade { background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.5) 100%); }
+  #txt { position: absolute; left: 60px; right: 60px; top: 520px; margin: 0; font-size: 74px; font-weight: 700; letter-spacing: -.03em; line-height: 1.16; text-shadow: 0 3px 22px rgba(0,0,0,.4); }
+  #txt mark { display: inline-block; padding: 0 20px 4px; border-radius: 8px; background: #ffe01b; color: #111; text-shadow: none; box-shadow: 0 8px 26px rgba(0,0,0,.25); }
+  #label { position: absolute; left: 70px; top: 48px; margin: 0; font-size: 30px; font-weight: 500; letter-spacing: .14em; text-shadow: 0 2px 12px rgba(0,0,0,.45); }
+  #phone { position: absolute; top: 50px; right: 56px; box-sizing: border-box; width: 292px; height: 622px; padding: 10px; border-radius: 48px; background: #0b0b0b;
+           box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 0 2px rgba(255,255,255,.14); }
+  #phone img { width: 100%; height: 100%; border-radius: 38px; object-fit: cover; display: block; }
+  #icon { position: absolute; top: 60px; right: 296px; width: 255px; border-radius: 23%; box-shadow: 0 18px 50px rgba(0,0,0,.4); }
+  body.left #phone { right: auto; left: 56px; } body.left #icon { right: auto; left: 296px; } body.left #txt { text-align: right; } body.left #label { left: auto; right: 70px; }
+  body.nophone #icon { right: 84px; top: 56px; } body.left.nophone #icon { left: 84px; }
+</style>
+<img class="fill" id="bg" alt="">
+<div class="fill" id="dim"></div>
+<img class="fill" id="person" src="person.png" alt="">
+<div class="fill" id="shade"></div>
+<div id="phone"><img alt=""></div>
+<img id="icon" alt="">
+<p id="label"></p>
+<p id="txt"></p>
+<script>
+const Q = new URLSearchParams(location.search), $ = (s) => document.querySelector(s);
+const sharp = Q.get("blur") === "0";
+$("#bg").src = sharp ? "frame.jpg" : "bg-blur.jpg";
+$("#person").style.display = sharp ? "none" : "block";
+$("#dim").style.opacity = Q.get("dim") ?? 0.4;
+if (Q.get("side") === "left") document.body.classList.add("left");
+if (Q.get("phone")) $("#phone img").src = Q.get("phone"); else { $("#phone").style.display = "none"; document.body.classList.add("nophone"); }
+if (Q.get("icon")) { $("#icon").src = Q.get("icon"); if (Q.get("iconw")) $("#icon").style.width = Q.get("iconw") + "px"; } else $("#icon").style.display = "none";
+$("#label").textContent = Q.get("label") ?? "";
+const t1 = document.createElement("span"), t2 = document.createElement("mark");
+t1.textContent = Q.get("t1") ?? ""; t2.textContent = Q.get("t2") ?? "";
+if (Q.get("hl")) t2.style.background = "#" + Q.get("hl");
+$("#txt").append(t1, document.createElement("br"), t2);
+if (!Q.get("t2")) t2.style.display = "none";
+</script>
