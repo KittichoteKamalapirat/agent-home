@@ -4,6 +4,9 @@
 #   Last column is optional: limit the line to one agent.
 # Delete or comment out any line you don't want, then re-run install.sh.
 
+# First-party cooking-video-editing lives in skills/cooking-video-editing.
+# install.sh installs first-party skills directly before this external list.
+
 # pstack (poteto-mode). Claude gets it as a plugin (see claude-plugins.txt),
 # so these raw skills are for Codex only. They use Cursor tool and model names.
 cursor/plugins  3dbd22ff12742fb28c9700b9760baa29ed41dc13  pstack/skills  codex
