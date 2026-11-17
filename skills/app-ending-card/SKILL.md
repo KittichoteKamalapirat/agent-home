@@ -43,11 +43,25 @@ scripts/make.sh <work-dir>
 
 That renders all four platforms into `<work-dir>/out`; name platforms after the folder to render fewer. It uses the frame-capture tool from the `dev-vlog-editing` skill, which is installed alongside this one.
 
+## Attach it to a finished video
+
+When the user has exported their video and wants finished files, one per platform:
+
+```bash
+scripts/append.sh <video> <work-dir>/out/ending-<platform>-overlay.mov <out.mp4>
+```
+
+The video's last frame is held under the card, so the result is longer by the ending's length and nothing in their edit is covered. The output keeps the video's size, frame rate and colour.
+
+- **iPhone HDR (HLG) exports.** A card converted at the standard level looks grey beside bright food and plates. The script reads how bright the footage's whites are and matches the card to them; it prints the level it chose. Dolby Vision metadata is dropped and the file stays plain HLG. Tell the user.
+- **Check a frame from each half** of the ending in every output: the card over the held shot, and the closing screen. For HLG, view frames through a tonemap; a raw frame grab looks washed out and proves nothing.
+- The file name of an export can state a different length than the file has. Report the measured duration.
+
 ## Check before handing over
 
 - Extract frames from a preview at about 0.7, 1.3, 1.8, 2.5 and 4.5 s and look at them: the headline fits on one line, the ring is on the right step, the thumbnail is the dish, the closing screen is centred.
 - The headline must stay under about 26 characters at this size. Shorten the wording before shrinking the type.
-- Say which checks were not possible: the sound has not been listened to, and whether the user's editor accepts a transparent clip is unknown until they try. If it does not, offer to attach the ending to their exported video.
+- Say which checks were not possible: the sound has not been listened to, and whether the user's editor accepts a transparent clip is unknown until they try. If it does not, attach the ending to their exported video as above.
 
 ## Guidance to give the user
 
@@ -55,3 +69,4 @@ That renders all four platforms into `<work-dir>/out`; name platforms after the 
 - A shorter version exists by design: delete the closing screen by setting `out` and `end` in `scripts/page/timing.json` to the same value, about 2.5 s.
 - The card is a template. For the next video only `item` changes.
 - Pair it with a caption line and a pinned comment carrying the store link, since viewers who leave early never see the ending.
+- Each platform gets its own file, since each ending shows that platform's share steps. Captions and links per platform are covered by the `app-social-profiles` skill.

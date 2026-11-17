@@ -1,0 +1,51 @@
+<!doctype html>
+<meta charset="utf-8">
+<!-- YouTube channel banner, 2560x1440, drawn from window.BANNER (banner.config.js, written by render.sh from banner.json).
+     Everything that must be read sits inside the 1546x423 centre box, the only part shown on every device.
+     ?guide=1 draws the phone, tablet and desktop boxes. -->
+<style>
+  html, body { margin: 0; }
+  body { width: 2560px; height: 1440px; overflow: hidden; position: relative;
+    font-family: -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif; }
+  .bg, .scrim { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .safe { position: absolute; left: 507px; top: 508px; width: 1546px; height: 423px; }
+  .col { position: absolute; top: 50%; display: flex; flex-direction: column; }
+  .center .col { left: 50%; transform: translate(-50%, -50%); align-items: center; text-align: center; }
+  .split .col { left: 0; transform: translateY(-50%); align-items: flex-start; text-align: left; max-width: 900px; }
+  .lockup { display: flex; align-items: center; font-weight: 800; letter-spacing: -0.045em; line-height: 1; }
+  .center .lockup { font-size: 150px; gap: 26px; } .center .lockup img { height: 166px; }
+  .split .lockup { font-size: 84px; gap: 16px; } .split .lockup img { height: 94px; }
+  .tag { font-weight: 700; letter-spacing: -0.03em; }
+  .center .tag { font-size: 64px; line-height: 1.1; margin-top: 24px; white-space: nowrap; }
+  .split .tag { font-size: 70px; line-height: .95; margin-top: 18px; }
+  .split .sub { font-size: 30px; margin-top: 14px; } .split .badge { height: 58px; margin-top: 18px; }
+  .sub { font-size: 34px; font-weight: 500; opacity: .7; margin-top: 20px; }
+  .icons { display: flex; gap: 18px; margin-top: 22px; } .icons img { width: 38px; height: 38px; }
+  .badge { height: 66px; margin-top: 24px; }
+  .side { position: absolute; right: 40px; top: 50%; transform: translateY(-50%); max-height: 404px; max-width: 560px; }
+  .deco { position: absolute; }
+  .guide { position: absolute; border: 4px dashed #ff2d75; box-sizing: border-box; }
+</style>
+<body>
+<script src="banner.config.js"></script>
+<script>
+  const b = window.BANNER, el = (html) => document.body.insertAdjacentHTML("beforeend", html);
+  const bg = b.background || {};
+  document.body.style.color = b.text === "light" ? "#fff" : (b.ink || "#20241f");
+  el(`<div class="bg" style="background-color:${bg.color || "#f4f8ef"};${bg.image ? `background-image:url(${bg.image})` : ""}"></div>`);
+  // A soft ellipse behind the text keeps it readable over a photo or pattern.
+  if (bg.scrim) el(`<div class="scrim" style="background:radial-gradient(ellipse 1300px 520px at center, ${bg.scrim} 0%, ${bg.scrim} 45%, transparent 100%)"></div>`);
+  for (const d of b.decorations || [])
+    el(`<img class="deco" src="${d.image}" style="left:${d.x}px;top:${d.y}px;width:${d.width}px;transform:rotate(${d.rotate || 0}deg)">`);
+  const tag = (b.tagline || "").replace(/\n/g, "<br>").replace(b.highlight || "\0", `<span style="color:${b.accent || "inherit"}">${b.highlight}</span>`);
+  el(`<div class="safe ${b.layout === "split" ? "split" : "center"}"><div class="col">
+      <div class="lockup">${b.logo ? `<img src="${b.logo}">` : ""}${b.app}</div>
+      ${tag ? `<div class="tag">${tag}</div>` : ""}
+      ${b.sub ? `<div class="sub">${b.sub}</div>` : ""}
+      ${b.icons ? `<div class="icons">${b.icons.map((i) => `<img src="${i}">`).join("")}</div>` : ""}
+      ${b.badge ? `<img class="badge" src="${b.badge}">` : ""}
+    </div>${b.layout === "split" && b.side ? `<img class="side" src="${b.side}">` : ""}</div>`);
+  if (new URLSearchParams(location.search).get("guide"))
+    for (const w of [1546, 1855, 2560]) el(`<div class="guide" style="left:${(2560 - w) / 2}px;top:508px;width:${w}px;height:423px"></div>`);
+</script>
+</body>

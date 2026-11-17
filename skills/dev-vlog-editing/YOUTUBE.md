@@ -40,7 +40,7 @@ In this video:
 ```
 
 - **Chapters** come from the cue times in `timeline.json`. The first must be 0:00, there must be at least three, and each must last 10 seconds or more. Recompute them whenever the cut changes.
-- **App Store link.** Use the country-neutral form `https://apps.apple.com/app/id<ID>` and find the ID in the project, not from a pasted storefront link. For tracking, the user generates a campaign link in App Store Connect under the app's Analytics; the campaign name is at most 30 characters, one per video (`yt_ep1`). Results appear only after five installs. The link opens the App Store on an iPhone; on a Mac an iPhone-only app shows an error, which is not a broken link.
+- **App Store link.** Use the country-neutral form `https://apps.apple.com/app/id<ID>` and find the ID in the project, not from a pasted storefront link. For tracking, add a campaign to the link (`?pt=<provider id>&ct=<name>&mt=8`). The name needs no setup in App Store Connect: any `ct` of at most 30 characters is recorded, one per video (`yt_ep1`). Results appear only after five installs. Naming and short links are covered by the `app-social-profiles` skill. The link opens the App Store on an iPhone; on a Mac an iPhone-only app shows an error, which is not a broken link.
 
 ## Upload steps to tell the user
 
