@@ -73,3 +73,6 @@ mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/productivity
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/productivity/to-questionnaire
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/productivity/wait-what
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/productivity/writing-for-agents
+
+# e2e: agentic end-to-end test runner (matches the e2e 0.15.1 npm package)
+tester-army/e2e  6fa2bc22229c3be7ffb40cf406ab5013d52923eb  skills/e2e
