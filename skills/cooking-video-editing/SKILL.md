@@ -31,7 +31,9 @@ Scrub candidate footage around the action, then inspect its beginning, contact o
 | Avocado preparation | Default to four ordered beats: split into halves, split into quarters, scoop the flesh, deposit it into the plate or bowl. One complete scoop-and-deposit can convey the last two beats. Follow a newer user-approved cut when it compresses these stages. |
 | Plating | Show one complete deposit of each new component, such as rice, meat, tomatoes, and guacamole. Keep the food leaving the utensil and landing. Apply the repetition test below before retaining another spoonful of the same component. |
 | Grilling or searing | Begin with the first piece entering the pan or grill. Include its initial contact before moving to turning or browning. |
-| Sauce additions | Give every recipe addition a visible pour, sprinkle, squeeze, or drop before blending or mixing. Small additions still count toward coverage. |
+| Sauce additions | Give every recipe addition a visible pour, sprinkle, squeeze, or drop before blending or mixing. Small additions still count toward coverage. Cut straight to the moment the ingredient leaves the spoon or bottle and lands in the bowl. Skip the reach, the jar opening and the pour into the spoon. |
+| Hand mixing or tossing | One continuous shot of about two full mixes, not several jump cuts of the same toss. |
+| Pan additions | Each new component going into the pan (marinated meat, vegetables, sauce) gets its moment of landing in the pan. |
 
 Completion criterion: each selected range contains its required action and visible result. Every applicable first/last pair and multi-step preparation is represented or marked unavailable in the ledger.
 
@@ -40,6 +42,8 @@ Completion criterion: each selected range contains its required action and visib
 Set each in-point just early enough to establish the approaching knife, utensil, or ingredient. Set the out-point after contact, release, or separation is visible. Remove waiting and repeated motions between these events. Let the necessary beats determine the total duration unless the user supplies a hard limit.
 
 Use one complete example per action by default. For every repeat, identify the new information it adds: a different ingredient, a distinct preparation stage, a visible texture change, or a necessary final state. Another avocado scoop, sauce spoonful, scrape, or stir usually adds no new information. Keep the strongest complete action and jump to the next stage. Preserve the first/last chopping pair specified above. Ingredient coverage requires each distinct addition, not every repeated quantity of it.
+
+For a recipe short, keep each action cut under about one second, typically 0.7–0.8 s from just before contact through the landing. A two-mix hand toss runs about 2 s. The opening dish shot can run about 1.2 s under the title, and the final dish holds about 2 s under the ending card. An approved 21 s chinjao rosu edit used this pacing after a 45 s first cut was rejected as too long.
 
 Give preparation logistics such as bag handling and sealing only enough time to explain the step. Spend recovered time on readable first deposits, pan contact, texture changes, and the finished food. Extend a rushed action through its visible result before cutting another unique step. Judge duration by what the viewer can understand; previous runtime and trim estimates are not targets.
 
@@ -56,5 +60,21 @@ Watch the assembled sequence at normal speed, then inspect each cut boundary. Ch
 Make a pacing pass for shots that are too short to read, linger after their result, or repeat information. For each flagged range, record its timestamp, visible evidence, and a specific keep, shorten, extend, or remove recommendation. Check the share of time spent on preparation versus the main food payoff. If tools permit only sampled frames or scrubbing, state that limit instead of claiming a continuous playback or audio review.
 
 If captions are requested, attach them to the corresponding visible addition and its component. Otherwise leave captions for the user's later pass.
+
+## 5. On-screen ingredient cards
+
+When the user asks for ingredient text, follow these defaults:
+
+- **One card per component**, listing all of that component's ingredients at once: the marinade, the vegetable prep, the sauce, the stir-fry oil and aromatics. Don't show one ingredient per shot. When a component spans several shots, keep its card on screen across them, and highlight the item being added in each shot.
+- **Amount and ingredient only**, such as "1 tbsp soy sauce" or "5g ginger". Leave out preparation words like "grated" or "sliced", because the footage shows them. Name meat generally ("Beef") unless the user wants the cut named.
+- **Use the amounts the user actually used.** List only ingredients that went in. When the user changed the source recipe (swapped meat, added chilies, skipped black pepper), the cards and captions follow what the user did, not the original recipe.
+- **Pan additions get a short label too** ("Beef mix", "Pepper mix", "Sauce") when each component goes into the pan.
+- Keep text legible over light backgrounds: add a soft dark gradient behind the top of the frame and a shadow on the text.
+
+## 6. Footage checks that are easy to miss
+
+- **Check every clip's shape and rotation before cutting.** iPhone clips can be portrait or landscape, with rotation of -90 or -180. Crop a landscape clip to 9:16; never scale it into 9:16, which squashes it. Some ffmpeg 7 builds carry the source rotation onto frames that are already rotated, so reset it after encoding (`ffmpeg -display_rotation 0 -i seg.mp4 -c copy out.mp4`) and check a decoded frame.
+- **Colour casts:** a clip lit by a red stove light needs a channel-mix correction to match its neighbours. Compare it side by side with an adjacent clip.
+- **Final shot under the app ending card:** the food must sit above the card. Crop and zoom the last shot if needed.
 
 Completion criterion: the action, ingredient, and pacing audits pass; each retained repeat has a stated purpose; remaining omissions are disclosed; and the saved project or export has been reopened and checked. For review-only requests, report findings and preserve the user's edit. Report the checks actually performed.

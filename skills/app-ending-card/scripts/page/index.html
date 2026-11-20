@@ -7,7 +7,8 @@
   /* 1080x1920 transparent ending for a short vertical video. Every frame is a pure function of time: seek(t).
      Part 1 sits over the video's final shot: a card shows the taps that send this video to the app, then the saved item.
      Part 2 covers the frame: app name, store badge, web address.
-     All content comes from /card.json (see SKILL.md); timings from timing.json; the taps per platform from platforms.json. ?p=<platform> */
+     All content comes from /card.json (see SKILL.md); timings from timing.json; the taps per platform from platforms.json. ?p=<platform>
+     When card.json has "ingredients", the saved item opens into a grid of up to 8 ingredient icons before part 2, using timing.json's "ingredients" times. */
   :root { --ink: #20241f; --muted: #60655e; --quiet: #767b74; --accent: #64cb3c; --accent-text: #285b32; --tile: #f2f2f2; }
   *, *::before, *::after { box-sizing: border-box; transition: none !important; animation: none !important; }
   html, body { width: 1080px; height: 1920px; margin: 0; overflow: hidden; background: transparent; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
@@ -42,6 +43,17 @@
   #outro .store { position: absolute; left: 0; right: 0; top: 930px; display: flex; justify-content: center; }
   #outro .store img { width: 470px; height: auto; }
   #outro .url { position: absolute; left: 0; right: 0; top: 1130px; text-align: center; color: var(--muted); font-size: 68px; font-weight: 550; letter-spacing: -.01em; line-height: 1; }
+  #ing { overflow: hidden; height: 0; }
+  #ingin { display: flow-root; }
+  #ing .ihead { display: flex; align-items: baseline; justify-content: space-between; margin-top: 40px; padding-top: 34px; border-top: 2px solid #eceeea; }
+  #ing .ihead b { font-size: 44px; font-weight: 650; letter-spacing: -.02em; }
+  #ing .ihead span { color: var(--muted); font-size: 34px; font-weight: 550; }
+  #ing .grid { display: grid; grid-template-columns: repeat(4, 1fr); row-gap: 26px; margin-top: 30px; }
+  #ing .tile { display: grid; justify-items: center; gap: 6px; text-align: center; }
+  #ing .tile i { display: grid; place-items: center; width: 150px; height: 150px; border-radius: 38px; background: #f4f5f3; }
+  #ing .tile img { width: 124px; height: 124px; object-fit: contain; }
+  #ing .tile b { margin-top: 6px; font-size: 29px; font-weight: 600; line-height: 1.05; letter-spacing: -.01em; }
+  #ing .tile small { font-size: 26px; font-weight: 500; color: var(--muted); line-height: 1; }
 </style>
 </head>
 <body>
@@ -63,6 +75,10 @@
       <div><b id="name"></b><span id="ok"><svg viewBox="0 0 24 24"><circle id="ok-dot" cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#20241f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><em id="saved" style="font-style:normal"></em></span></div>
     </div>
   </div>
+  <div id="ing"><div id="ingin">
+    <div class="ihead"><b id="ing-title"></b><span id="count"></span></div>
+    <div class="grid" id="grid"></div>
+  </div></div>
   <span class="tap" id="tap"></span>
 </div>
 <div id="outro">
@@ -83,7 +99,7 @@ const ICON = {
   share: '<svg viewBox="0 0 24 24"><path d="M13.5 5l7 6.5-7 6.5v-4c-5 0-8 1.5-10 5 0-6 3.5-10 10-10V5z" stroke-linejoin="round"/></svg>',
   more: '<svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/></svg>',
 };
-let TAPS, SWAP, OUT, spots, logoAt;
+let TAPS, SWAP, OUT, GROW = null, ingH = 0, spots, logoAt;
 
 function seek(t) {
   const k = eo(p(t, 0, 0.36)), leave = p(t, OUT, OUT + 0.2);
@@ -112,9 +128,20 @@ function seek(t) {
   const h = p(t, SWAP + 0.28, SWAP + 0.6), q = Math.sin(p(t, SWAP + 0.6, SWAP + 0.74) * Math.PI);
   $("#logo").style.transform = `translateY(${-30 * 4 * h * (1 - h)}px) scale(${1 + 0.14 * q}, ${1 - 0.16 * q})`;
 
+  // ingredients variant: the saved item opens upward into the ingredients pulled from the video
+  if (GROW !== null) {
+    $("#ing").style.height = eo(p(t, GROW, GROW + 0.4)) * ingH + "px";
+    [...document.querySelectorAll("#ing .tile")].forEach((el, i) => {
+      const e = p(t, GROW + 0.25 + i * 0.09, GROW + 0.55 + i * 0.09);
+      el.style.opacity = cl(e * 2.5); el.style.transform = `scale(${0.6 + 0.4 * back(e)})`;
+    });
+    $("#count").style.opacity = cl(p(t, GROW + 0.3, GROW + 0.5));
+  }
+
   // ending: white grows out of the card's logo and covers the frame
   const o = $("#outro"); o.style.display = t >= OUT ? "block" : "none";
   if (t >= OUT) {
+    if (t < OUT + 0.02) { const lr = $("#logo").getBoundingClientRect(); logoAt = { x: lr.left + lr.width / 2, y: lr.top + lr.height / 2 }; }
     o.style.clipPath = `circle(${eo(p(t, OUT, OUT + 0.5)) * 2300}px at ${logoAt.x}px ${logoAt.y}px)`;
     [...o.querySelectorAll("[data-in]")].forEach((el, i) => {
       const e = eo(p(t, OUT + 0.3 + i * 0.1, OUT + 0.72 + i * 0.1));
@@ -130,6 +157,8 @@ window.ready = (async () => {
   const get = async (u) => (await fetch(u)).json();
   const [card, timing, platforms] = await Promise.all([get("/card.json"), get("timing.json"), get("platforms.json")]);
   ({ taps: TAPS, swap: SWAP, out: OUT } = timing);
+  let end = timing.end;
+  if (card.ingredients) ({ grow: GROW, out: OUT, end } = timing.ingredients);
   const key = new URLSearchParams(location.search).get("p") ?? "instagram", pf = platforms[key];
   if (!pf) throw new Error("unknown platform " + key);
   const asset = (f) => "/work/" + f;
@@ -144,13 +173,25 @@ window.ready = (async () => {
   $("#item").src = asset(card.item.image); $("#name").textContent = card.item.name; $("#saved").textContent = card.savedLabel;
   $("#out-name").textContent = card.app; $("#url").textContent = card.url ?? "";
   if (card.badge) $("#badge").src = asset(card.badge); else $("#badge").parentElement.style.display = "none";
+  if (card.ingredients) {
+    const ing = card.ingredients, items = ing.items.slice(0, 8);
+    $("#ing-title").textContent = ing.title ?? "Ingredients found";
+    $("#count").textContent = `${ing.total ?? ing.items.length} items`;
+    $("#grid").innerHTML = items.map((it) => `<div class="tile"><i><img src="${asset(it.icon)}" alt=""></i><b>${it.name}</b>${it.amount ? `<small>${it.amount}</small>` : ""}</div>`).join("");
+  }
   await Promise.all([...document.images].filter((im) => im.src).map((im) => im.decode().catch(() => {})));
   await document.fonts.ready;
+  if (card.ingredients) {
+    // keep the card's bottom edge where it is, so it grows upward as the ingredients open
+    const r = $("#card").getBoundingClientRect();
+    $("#card").style.top = "auto"; $("#card").style.bottom = 1920 - r.bottom + "px";
+    ingH = $("#ingin").getBoundingClientRect().height;
+  }
   const base = $("#card").getBoundingClientRect();
   spots = ["#s1", "#s2", "#tile"].map((id) => { const r = $(id).getBoundingClientRect(); return { x: r.left + r.width / 2 - base.left, y: r.top + r.height / 2 - base.top }; });
   const lr = $("#logo").getBoundingClientRect(); logoAt = { x: lr.left + lr.width / 2, y: lr.top + lr.height / 2 };
   await seek(0);
-  return timing.end;
+  return end;
 })();
 </script>
 </body>

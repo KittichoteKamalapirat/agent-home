@@ -1,10 +1,12 @@
 // The ending's sound: one short beep each time the logo hops (when the item is saved, and twice on the closing screen).
-// Usage: node audio.mjs <out.wav>     Timings come from page/timing.json, the same file the animation reads.
+// Usage: node audio.mjs <out.wav> [ingredients]     Timings come from page/timing.json, the same file the animation reads;
+// pass "ingredients" for the variant whose closing screen comes later.
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const T = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "page/timing.json"), "utf8"));
+const base = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "page/timing.json"), "utf8"));
+const T = process.argv[3] === "ingredients" ? { ...base, ...base.ingredients } : base;
 const SR = 48000, N = Math.round(SR * T.end);
 const L = new Float32Array(N), R = new Float32Array(N);
 const hz = (midi) => 440 * Math.pow(2, (midi - 69) / 12);
