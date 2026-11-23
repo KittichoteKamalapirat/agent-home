@@ -9,7 +9,7 @@
 
 # pstack (poteto-mode). Claude gets it as a plugin (see claude-plugins.txt),
 # so these raw skills are for Codex only. They use Cursor tool and model names.
-cursor/plugins  3dbd22ff12742fb28c9700b9760baa29ed41dc13  pstack/skills  codex
+cursor/plugins  7a583913eb1b8d1a0ee76753d1a2cf072e7b54f9  pstack/skills  codex
 
 # Emil Kowalski: apple-design, animation and design-engineering skills (19)
 emilkowalski/skills  0f2e23b32bb1265e84cff8d3e75785fec953fb1b  skills
