@@ -41,6 +41,10 @@ vercel-labs/skills  b716f9dc2ba36b6aa8f0080615e5a3a6caeac63b  skills/find-skills
 # plugin synced from the claude.ai account.
 cloudflare/skills  cbf893b954222276bf1af57e5f23379231e0efb9  skills  codex
 
+# Cloudflare security-audit: recon, per-class hunters, adversarial validators,
+# schema-checked findings.json. Seeded Cloudflare's vulnerability harness.
+cloudflare/security-audit-skill  c1c8a8c1471069fb0e188eeaff69b8e8db6564a8  skills/security-audit
+
 # Matt Pocock: engineering
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/ask-matt
 mattpocock/skills  5863806dd4e15c63174bee4e7515a4256792ecfa  skills/engineering/codebase-design
