@@ -11,6 +11,18 @@ AGENTS.md or CLAUDE.md takes precedence where they differ.
   one-line edits.
 - Use the `codebase-design` skill when designing or restructuring code.
 
+## TypeScript linting
+
+- TypeScript projects use oxlint, with type-aware rules on, next to strict
+  `tsc`. The type checker stays the main net; oxlint catches what it allows,
+  such as floating promises, unused code and leftover `debugger` or
+  `console.log`.
+- Before finishing a change in a TypeScript project, run its lint script and
+  fix every oxlint finding. Suppress one only with an inline
+  `oxlint-disable-next-line <rule> -- <reason>` when the code is intentional.
+- If a TypeScript project has no oxlint yet, suggest adding it instead of
+  adding it unasked.
+
 ## Skills
 
 - Shared skills are installed from the agent-home repo
