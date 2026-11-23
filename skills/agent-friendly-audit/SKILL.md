@@ -5,7 +5,7 @@ description: Audits the current repository for the mistakes coding agents keep m
 
 # Agent-friendly audit
 
-Work in poteto-mode for the whole task. In Claude Code, load it through the `use-poteto-mode` skill. In Codex, read `~/.agents/skills/poteto-mode/SKILL.md`.
+Work in poteto-mode for the whole task. In Claude Code, load it with the `pstack:poteto-mode` skill. In Codex, read `~/.agents/skills/poteto-mode/SKILL.md`.
 
 ## The task
 
