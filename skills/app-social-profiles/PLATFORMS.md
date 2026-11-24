@@ -20,11 +20,12 @@ Count emoji as two characters when a bio is near its limit.
 | Place | Instagram | TikTok | YouTube | Facebook |
 |---|---|---|---|---|
 | Profile | Links field (Edit profile → Links), any account, up to five | Website field: Business account, or a personal account past 1,000 followers | Channel links; the first shows on the banner | Page link |
-| Post text | no | no | description | yes |
-| Comments | no | no | pinned comment | yes |
+| Post text | no | no | regular-video description; not Shorts descriptions | yes |
+| Comments | no | no | regular-video comments; not Shorts comments | yes |
 | Other | Story link sticker | Instagram and YouTube buttons on the profile | end screens allow videos and playlists only | |
 
 - **Instagram** shows a single link as its raw address, whatever title it was given. That is the reason to use a short link on the app's own domain.
+- **YouTube Shorts:** external URLs in descriptions and comments are not clickable. Use a channel profile link as the tappable route. Check [YouTube's link guidance](https://support.google.com/youtube/answer/13748639) when preparing a post.
 - **TikTok Business accounts** lose most trending sounds. In some regions there is no plain switch, only "Become a Verified Business Account", which asks for a company address and registration documents. Without a registered business the user stays personal: connect Instagram and YouTube to the profile, put the web address in the bio as plain text, and wait for 1,000 followers. Never suggest entering business details that are not real.
 - **Location.** No platform has a setting that aims an account at a country. YouTube's country field is where the owner lives and is tied to payments. What moves the audience is language, units, posting hours, and who the account follows and engages with.
 - **Following far above followers** reads as follow-for-follow. Unfollowing is safe at roughly 50 to 100 a day by hand; bulk tools get accounts blocked.
