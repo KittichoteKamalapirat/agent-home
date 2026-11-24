@@ -59,6 +59,26 @@ For a shared skill:
 If the agent-home checkout cannot be pushed from the current session, say so and
 give me the files to add; do not leave a local-only copy as the result.
 
+## Verifying web work
+
+This applies to websites and web apps only. It does not apply to native iOS
+apps, which are verified on a device or Simulator with the project's own skills.
+
+Before calling a change to a web UI done, check it in a real browser with Chrome
+DevTools for Agents (the `chrome-devtools` MCP server) when it is available:
+
+- Load the affected pages and read the console and network panels for errors.
+- Emulate a phone-sized and a desktop-sized viewport and look at a screenshot of
+  each. Adding a feature often breaks a layout that was responsive before.
+- For changes that could affect loading or interaction speed, record a
+  performance trace or run a Lighthouse audit and compare with before.
+
+In Claude Code the server comes from the `chrome-devtools-mcp` plugin. In Codex
+it is added once per machine with
+`codex mcp add chrome-devtools -- npx chrome-devtools-mcp@latest`. If the server
+is not available in the current session, say so and verify another way; do not
+claim a browser check that was not run.
+
 ## pstack in Codex
 
 This section applies only when running in Codex. Claude Code uses the pstack

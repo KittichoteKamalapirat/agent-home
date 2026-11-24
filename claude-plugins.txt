@@ -1,3 +1,5 @@
 # Claude Code plugins to install.
 # Format:  <marketplace source>  <plugin>@<marketplace name>
 cursor/plugins  pstack@cursor-plugins
+# Chrome DevTools for Agents: MCP server plus debugging skills (web only)
+ChromeDevTools/chrome-devtools-mcp  chrome-devtools-mcp@chrome-devtools-plugins
