@@ -17,6 +17,9 @@ emilkowalski/skills  0f2e23b32bb1265e84cff8d3e75785fec953fb1b  skills
 # Scandinavian design (Eric Zakariasson)
 ericzakariasson/scandinavian-design  295742307b97fa0fb848f9be2d6e229ca517c736  skills/scandinavian-design
 
+# Modern Web Guidance (Chrome, Edge, Firefox and MDN teams)
+googlechrome/modern-web-guidance  2b4aa13a72dd47cd135b06ce5abfccd92e19b24f  skills/modern-web-guidance
+
 # Impeccable (separate builds for each agent)
 pbakaus/impeccable  9272526cbd11eff91f0842d383be099f30fc3ff9  .claude/skills/impeccable  claude
 pbakaus/impeccable  9272526cbd11eff91f0842d383be099f30fc3ff9  .agents/skills/impeccable  codex
