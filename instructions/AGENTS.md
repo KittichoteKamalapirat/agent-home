@@ -59,6 +59,13 @@ For a shared skill:
 If the agent-home checkout cannot be pushed from the current session, say so and
 give me the files to add; do not leave a local-only copy as the result.
 
+## Copywriting
+
+When writing or editing copy that people will read, such as landing pages, app
+store listings, marketing emails, social captions, blog posts and in-app text,
+run the `humanizer` skill on the draft before presenting it. This does not apply
+to code, commit messages, or documents written for agents.
+
 ## Verifying web work
 
 This applies to websites and web apps only. It does not apply to native iOS

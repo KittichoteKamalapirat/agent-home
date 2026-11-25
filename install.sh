@@ -11,8 +11,8 @@ linked=0; skipped=0; failed=0
 
 # Link one skill folder into one skills directory. First source to claim a name wins.
 SEEN="$(mktemp)"; trap 'rm -f "$SEEN"' EXIT
-link_skill() { # <skill dir> <target skills dir>
-  local src="$1" dest="$2/$(basename "$1")"
+link_skill() { # <skill dir> <target skills dir> [skill name]
+  local src="$1" dest="$2/${3:-$(basename "$1")}"
   mkdir -p "$2"
   if grep -qxF "$dest" "$SEEN"; then
     echo "  skip (name already taken by an earlier line): $dest"; skipped=$((skipped+1)); return
@@ -29,14 +29,14 @@ link_skill() { # <skill dir> <target skills dir>
 }
 
 # Link a skill folder, or every skill folder inside it, for the chosen agents.
-link_path() { # <path> <claude|codex|both>
-  local path="$1" agents="$2" dirs=() d t
+link_path() { # <path> <claude|codex|both> [name, when <path> is itself one skill]
+  local path="$1" agents="$2" name="${3:-}" dirs=() d t
   if [ -f "$path/SKILL.md" ]; then dirs=("$path")
   else for d in "$path"/*/; do [ -f "${d}SKILL.md" ] && dirs+=("${d%/}"); done; fi
   if [ ${#dirs[@]} -eq 0 ]; then echo "  FAILED: no SKILL.md under $path"; failed=$((failed+1)); return; fi
   for d in "${dirs[@]}"; do
-    [ "$agents" != codex ] && link_skill "$d" "$CLAUDE_SKILLS"
-    [ "$agents" != claude ] && link_skill "$d" "$CODEX_SKILLS"
+    [ "$agents" != codex ] && link_skill "$d" "$CLAUDE_SKILLS" "$name"
+    [ "$agents" != claude ] && link_skill "$d" "$CODEX_SKILLS" "$name"
   done
 }
 
@@ -59,7 +59,10 @@ link_path_if_any() { ls "$1"/*/SKILL.md >/dev/null 2>&1 && link_path "$1" both; 
 link_path_if_any "$REPO/skills"
 while read -r repo ref path agents; do
   case "$repo" in ''|'#'*) continue;; esac
-  if dir="$(fetch "$repo" "$ref" "$path")"; then link_path "$dir/$path" "${agents:-both}"
+  if dir="$(fetch "$repo" "$ref" "$path")"; then
+    # A path of "." means the repo root is the skill; name it after the repo.
+    if [ "$path" = . ]; then link_path "$dir" "${agents:-both}" "${repo#*/}"
+    else link_path "$dir/$path" "${agents:-both}"; fi
   else echo "  FAILED: could not download $repo@$ref"; failed=$((failed+1)); fi
 done < "$REPO/skills.txt"
 
