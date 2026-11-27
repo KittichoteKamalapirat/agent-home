@@ -80,6 +80,7 @@ The video's last frame is held under the card, so the result is longer by the en
 
 ## Check before handing over
 
+- **Safe area.** The card spans x 70–930 and ends at y 1407, which clears the like/share buttons and the caption area on Instagram, TikTok and YouTube (the 5 s card starts at y 980; the ingredients card grows upward to about y 596). Keep it there. If you change the card's size or position in `index.html`, keep it inside x 50–920 and y 220–1440 and check a frame of each half with those zones shaded. Before Nov 2026 the card ran to x 1010 and y 1507, under the buttons and caption; don't go back to that.
 - Extract frames from a preview at about 0.7, 1.3, 1.8, 2.5 and 4.5 s and look at them: the headline fits on one line, the ring is on the right step, the thumbnail is the dish, the closing screen is centred.
 - The headline must stay under about 26 characters at this size. Shorten the wording before shrinking the type.
 - Say which checks were not possible: the sound has not been listened to, and whether the user's editor accepts a transparent clip is unknown until they try. If it does not, attach the ending to their exported video as above.

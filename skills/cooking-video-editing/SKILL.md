@@ -63,6 +63,8 @@ Completion criterion: all included ledger entries map to actual timeline clips; 
 
 Watch the assembled sequence at normal speed, then inspect each cut boundary. Check every applicable row in the action table and reconcile every ingredient against the ledger. Repair shots that end before the food lands or the knife completes its cut. Report missing footage and uncertain ingredients explicitly.
 
+Check that the Piiman step timeline (section 7) is in the video and that every overlay passes the safe-area check (section 8).
+
 Make a pacing pass for shots that are too short to read, linger after their result, or repeat information. For each flagged range, record its timestamp, visible evidence, and a specific keep, shorten, extend, or remove recommendation. Check the share of time spent on preparation versus the main food payoff. If tools permit only sampled frames or scrubbing, state that limit instead of claiming a continuous playback or audio review.
 
 If captions are requested, attach them to the corresponding visible addition and its component. Otherwise leave captions for the user's later pass.
@@ -71,11 +73,13 @@ If captions are requested, attach them to the corresponding visible addition and
 
 When the user asks for ingredient text, follow these defaults:
 
+- **A component is what the viewer sees as its own tray, bowl or step.** Two meats that share a seasoning are still two components: shio tongue and shio tenderloin get separate cards, never one "SHIO" card listing both. Name the card after the thing on screen ("SHIO TONGUE", "TARE KARUBI"). The captions use the same sections in the same order.
 - **One card per component**, listing all of that component's ingredients at once: the marinade, the vegetable prep, the sauce, the stir-fry oil and aromatics. Don't show one ingredient per shot. When a component spans several shots, keep its card on screen across them, and highlight the item being added in each shot.
 - **Highlights move down the list.** Order the card to match the selected footage, or reorder the footage when the recipe permits. Check the highlight sequence from beginning to end. Keep uncertain identities explicit; use a group label only when the available evidence supports the group.
 - **Amount and ingredient only**, such as "1 tbsp soy sauce" or "5g ginger". Leave out preparation words like "grated" or "sliced", because the footage shows them. Name meat generally ("Beef") unless the user wants the cut named.
 - **Use the amounts the user actually used.** List only ingredients that went in. When the user changed the source recipe (swapped meat, added chilies, skipped black pepper), the cards and captions follow what the user did, not the original recipe.
 - **Pan additions get a short label too** ("Beef mix", "Pepper mix", "Sauce") when each component goes into the pan.
+- Keep every card inside the safe area in section 8.
 - Use large, centered text with a black outline as the default for cooking labels and ingredient cards. Check the actual phone-sized export over the brightest shot. A gradient or shadow can supplement the outline. Place the card so the action remains visible.
 
 ## 6. Footage checks that are easy to miss
@@ -87,9 +91,14 @@ When the user asks for ingredient text, follow these defaults:
 
 Completion criterion: the action, ingredient, and pacing audits pass; each retained repeat has a stated purpose; remaining omissions are disclosed; and the saved project or export has been reopened and checked. For review-only requests, report findings and preserve the user's edit. Report the checks actually performed.
 
-## 7. Reusable step timeline
+## 7. Piiman step timeline (required)
 
-For Piiman cooking videos, reuse the approved jumping step timeline unless the user requests another treatment. Choose short labels for the actual recipe stages and align arrivals with their footage. Keep the overview clear beside ingredient cards and below platform controls.
+Every Piiman cooking video gets the jumping Piiman (green pepper) step timeline, even when the request does not mention it. Delivering without it is a missed requirement, not a style choice; leave it out only when the user says so. Put it on the plan and the progress checklist from the start.
+
+- **One milestone per component** from the ledger, in footage order, plus a final stage for the payoff ("Grill & eat", "Serve"). For a meal of several meats, each meat tray is its own milestone. Use the same names as the ingredient cards.
+- Piiman lands on each milestone when that component's first shot starts. Show the timeline from the first milestone until just before the final shot, so the final shot and the ending card are clean.
+- Place the panel below the platform top bars (panel top at y 260 or lower at 1080×1920), and start the ingredient cards below the panel (about y 540). Both must sit in the safe area in section 8.
+- **Tool:** `piiman_timeline.py` with a JSON config (steps with `label` and `at`, `show_from`, `show_to`, optional `moods`, `layout.panel_y`, idle frames). It ships in a `timeline-assets.tar` (script, mascot frames, planted idle frames) kept with earlier videos' work files; a previous video's `timeline-config.json` is a working example. If neither can be found, ask the user for them before building a substitute. Render with `--overlay` (a transparent top band) and composite it with `ffmpeg ... overlay=0:0:eof_action=pass`. The script's plain burn-in mode produced a 1080×600 video in Nov 2026; check the output size if you use it. Set `duration` to the edit's measured length.
 
 Find the approved mascot assets in the repository before creating new artwork. Search for `piiman-planted-idle` and read its asset README for the editable source, runtime file, preview, and rebuild commands. Keep the asset's detailed settings in that README rather than duplicating them here. If the asset is unavailable in the current checkout, report that gap before substituting a different animation.
 
@@ -97,4 +106,17 @@ Use the approved planted idle while Piiman rests on a step and the existing hops
 
 Save reusable animation sources, native Rive exports, previews, and rebuild notes in the project repository. Keep large footage and finished video exports with the video's editing artifacts. Treat runtime export restrictions separately from clean native preview captures; inspect what the saved runtime actually includes before recommending it for an app.
 
-Completion criterion: each timeline stage matches the edit; resting and hopping frames are checked at output scale; the idle stays rooted; and the saved source and runtime can be located from the repository documentation.
+Completion criterion: the timeline is in the delivered video; each timeline stage matches the edit; resting and hopping frames are checked at output scale; the idle stays rooted; and the saved source and runtime can be located from the repository documentation.
+
+## 8. Platform safe area
+
+The same file goes to Instagram Reels, TikTok and YouTube Shorts, so every piece of text, card, timeline and ending card must clear all three apps' controls. At 1080×1920 keep text out of:
+
+- **the top 220 px** (app header, tabs, search and camera buttons);
+- **everything below y 1440** (username, caption, music line, subscribe button);
+- **x above 920 between y 760 and 1440** (the like, comment and share buttons; YouTube's are the widest);
+- the outer 50 px on the left.
+
+Text sits inside x 50–920 and y 220–1440 unless it is above y 760, where it may run to x 1020. Background and footage can fill the whole frame.
+
+Check it, don't assume it: render one frame per overlay (title, each card, the timeline, both halves of the ending) with these zones shaded red, look at them, and measure each overlay's bounding box from its alpha. Show the user the shaded check image with the delivery. Section 4's audit is not passed until this is.
